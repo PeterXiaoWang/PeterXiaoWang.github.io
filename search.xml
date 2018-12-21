@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[RecyclerView实现item多类型布局和跨列]]></title>
+    <url>%2F2018%2F12%2F21%2FRecyclerView%E5%AE%9E%E7%8E%B0item%E5%A4%9A%E7%B1%BB%E5%9E%8B%E5%B8%83%E5%B1%80%E5%92%8C%E8%B7%A8%E5%88%97%2F</url>
+    <content type="text"><![CDATA[背景 本文主要简单记录下RecyclerView如何实现item多类型布局和item跨列 item多类型布局 首先为RecyclerView设置layoutManger，因为下文要说到跨列，所以这里选用GridLayoutManager。然后为GridLayoutManager设置初始列数，这里设置为两列，代码如下 12manager = new GridLayoutManager(this, 2);recyclerView.setLayoutManager(manager); 接着重写RecyclerView对应adapter的getItemViewType方法，将item的类型标识作为此方法的返回 123public int getItemViewType(int position) &#123; return dataList.get(position).getItemType();&#125; 然后在onCreateViewHolder方法中根据当前viewType的类型去返回对应的viewHolder 1234567891011public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) &#123; View view = null; if (viewType == ITEM_TYPE_1) &#123; view = View.inflate(mContext, R.layout.item_1, null); return new ViewHolder1(view); &#125; else if (viewType == ITEM_TYPE_2) &#123; view = View.inflate(mContext, R.layout.item_2, null); return new ViewHolder2(view); &#125; return new ViewHolder1(view);&#125; 至此简单的item多类型布局就实现了 item跨列 item实现跨列主要通过重写GridLayoutManager的setSpanSizeLookup方法来实现，代码如下 1234567891011121314gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() &#123; @Override public int getSpanSize(int position) &#123; int spanSize; if (adapter.getItemViewType(position) == ITEM_TYPE_1) &#123; spanSize = 2;//跨2列 &#125; else if (adapter.getItemViewType(position) == ITEM_TYPE_2) &#123; spanSize = 1;//跨1列 &#125; else &#123; spanSize = 2; &#125; return spanSize; &#125;&#125;); 此处的spanSize即为需要跨的列数，这里通过当前布局类型来设置对应的spanSize，至此完成跨列]]></content>
+      <categories>
+        <category>安卓笔记</category>
+      </categories>
+      <tags>
+        <tag>RecyclerView</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[H5微信支付webview设置referer无效问题]]></title>
+    <url>%2F2018%2F12%2F21%2FH5%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98webview%E8%AE%BE%E7%BD%AEreferer%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[背景 安卓在接入H5微信支付时，需要在webview中手动设置referer，代码如下 123Map extraHeaders = new HashMap();extraHeaders.put("Referer", "商户申请H5时提交的授权域名");//例如 http://www.baidu.com webView.loadUrl(targetUrl, extraHeaders);//targetUrl为微信下单地址 设置referer的原因是因为微信后端需要验证请求来源，所以如果这个地方没有去设置的话，将无法正常拉起支付，并且webview会跳转如下页面中 但是在测试过程中发现一个兼容性问题：在4.4.4、4.4.3的设备上，下单时一直会跳转到上面的页面中，后来通过抓包发现设置的Referer没有生效 解决方案 经过研究发现了一个靠谱方案，那就是利用loadDataWithBaseURL方法代替loadUrl方法，通过js去请求微信下单Url，我们先看下loadDataWithBaseURL方法的具体描述如下 1public void loadDataWithBaseURL(String baseUrl, String data, String mimeType, String encoding, String historyUrl) 此方法入参data可以是Html代码片，baseUr为页面的基础Url，用来组织html中的相对路径 具体做法 我们在data这个参数中传入js代码片去请求微信下单Url，而baseUr设置为授权域名，这样请求微信下单Url时，referer自动会被设置为baseUrl（正常请求的referer默认就是请求的来源地址），最终实现代码如下 1234567891011if (("4.4.3".equals(android.os.Build.VERSION.RELEASE)) || ("4.4.4".equals(android.os.Build.VERSION.RELEASE))) &#123; //兼容这两个版本设置referer无效的问题 view.loadDataWithBaseURL("商户申请H5时提交的授权域名", "&lt;script&gt;window.location.href=\"" + targetUrl + "\";&lt;/script&gt;", "text/html", "utf-8", null);&#125; else &#123; Map&lt;String, String&gt; extraHeaders = new HashMap&lt;&gt;(); extraHeaders.put("Referer", "商户申请H5时提交的授权域名"); view.loadUrl(targetUrl, extraHeaders);&#125; 经过测试，以上代码可以在安卓4.4.X正常拉起H5微信支付，最后贴一下官方总结的微信H5支付常见问题汇总 https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=15_4 。希望本文能帮助到遇到相同问题的程序员们！]]></content>
+      <categories>
+        <category>脱坑指北</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[Google支付脱坑指南]]></title>
     <url>%2F2018%2F12%2F20%2FGoogle%E6%94%AF%E4%BB%98%E8%84%B1%E5%9D%91%E6%8C%87%E5%8D%97%2F</url>
     <content type="text"><![CDATA[背景 本文主要介绍使用aidl方式接入google支付时遇到的坑以及注意事项 接入google pay的官方文档：https://developer.android.com/google/play/billing/index.html 官方示例：https://github.com/googlesamples/android-play-billing 结合文档与Demo对内购应该会有一个比较全面的理解 坑与解 官方Demo中是在客户端中做了支付结果的校验，但推荐支付校验最好是放在服务端中处理。因为支付校验时需要利用专属的app_key，如果放在客户端有一定安全性风险 在测试google pay的时候需要在developer console后台中创建一个beta或者alpha版本的应用，并且需要上传一个签名的apk，当然前提条件是必须要花25美金申请一个谷歌开发账号。另外需要注意的是此apk必须包含&lt;uses-permission android:name=&quot;com.android.vending.BILLING&quot; /&gt;权限，即内购权限 当应用处于beta、alpha状态时，只有授权的测试者账号（google 账号）才能在google play中下载此apk。在下图1的地方进行添加测试者操作，添加完成后将2的链接分享给测试者，测试者进行授权操作便可以在google play中下载此apk 可能有的同学会问，那岂不是每次做一些改动是必须重新上传apk然后下载，再进行测试？其实只要保证运行的apk签名与developer console上传的apk签名一致，包名一致，版本号与版本名是上传过的版本号与版本名即可。上传过的版本号和版本名怎么理解呢？ 举个例子如上图，我上传过两个版本，老版本version code=10 、verison name=1.5.3，新版本version code=11 verison name=1.5.3，只要本地运行apk的verison code、version name在上传过的各个版本之中就可以正常测试，如果随便写不存在version code、version name是无法正常调起的支付的。 需要注意的是Android Studio直接运行的签名是默认debug，要保持与 developer console 签名一致可以手动配置debug签名，这样直接通过 Android Studio 运行就可以直接进行支付测试。 可以利用google提供的特有的商品id进行静态响应测试，静态相应测试无需进行支付 配置商品时需要注意的坑就是要将配置完成的商品状态改为激活状态，不然进行支付时一直提示需要登录 进行真实测试时，测试的google账号必须绑定有海外购买能力的信用卡或者paypal 不比担心花销，只要在developer console中配置测试账号，就可以进行真实测试但不会真的扣钱。配置的地方如下图]]></content>
