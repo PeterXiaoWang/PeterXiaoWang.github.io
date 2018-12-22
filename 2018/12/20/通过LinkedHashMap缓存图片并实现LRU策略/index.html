@@ -87,7 +87,7 @@
 <meta property="og:description" content="前言 在Android开发过程中，实现图片缓存是一个很重要的问题，如果处理不当很容易引起OOM等问题。很多图片加载框架中都会使用LRU机制来优化内存使用率。今天我们就看下通过LinkedHashMap如何实现LRU机制。 LRU（Least Recently Used）策略,即当内存使用不足时，把最近最少使用的数据从缓存中移除，保留使用最频繁的数据。 LinkedHashMap  LinkedHa">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/12/20/通过LinkedHashMap缓存图片并实现LRU策略/20150706170820591.png">
-<meta property="og:updated_time" content="2018-12-21T09:02:25.612Z">
+<meta property="og:updated_time" content="2018-12-22T08:11:49.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过LinkedHashMap缓存图片并实现LRU策略">
 <meta name="twitter:description" content="前言 在Android开发过程中，实现图片缓存是一个很重要的问题，如果处理不当很容易引起OOM等问题。很多图片加载框架中都会使用LRU机制来优化内存使用率。今天我们就看下通过LinkedHashMap如何实现LRU机制。 LRU（Least Recently Used）策略,即当内存使用不足时，把最近最少使用的数据从缓存中移除，保留使用最频繁的数据。 LinkedHashMap  LinkedHa">
@@ -341,8 +341,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-21T17:02:25+08:00">
-                2018-12-21
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-22T16:11:49+08:00">
+                2018-12-22
               </time>
             
           </span>
@@ -432,7 +432,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line">	map.put(<span class="string">"key"</span>+i,<span class="string">"value"</span>+i);</span><br><span class="line">&#125;</span><br><span class="line">		</span><br><span class="line">map.get(<span class="string">"key"</span>+<span class="number">3</span>);</span><br><span class="line">map.put(<span class="string">"key5"</span>,<span class="string">"value new add"</span>);</span><br><span class="line">		</span><br><span class="line"><span class="keyword">for</span>(String value:map.values())&#123;</span><br><span class="line">	System.out.println(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这段代码是向已经满了的LinkedHashMap中继续添加一个元素，根据前所讲，应该会删除第一个元素，即为key0元素被删除，下面看下结果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">value1</span><br><span class="line">value2</span><br><span class="line">value4</span><br><span class="line">value3</span><br><span class="line">value new add</span><br></pre></td></tr></table></figure>
-<p>结果与我们前面所讲的一致。写到这里大家应该对linkedhashmap实现LRU有了一个全面的了解。利用这个机制在缓存图片的时候大大的优化内存使用率，使内存中保留的数据是经常使用的图片</p>
+<p>结果与我们前面所讲的一致。写到这里大家应该对linkedhashmap实现LRU有了一个全面的了解。利用这个机制在缓存图片的时候大大的优化内存使用率，使内存中保留的数据是经常使用的图片。</p>
 
       
     </div>
@@ -546,7 +546,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -557,7 +557,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -568,7 +568,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

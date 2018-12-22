@@ -89,7 +89,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/20/Google支付脱坑指南/20170401173134262.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/20/Google支付脱坑指南/20170401173204247.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/20/Google支付脱坑指南/20170401173457771.png">
-<meta property="og:updated_time" content="2018-12-20T16:18:40.399Z">
+<meta property="og:updated_time" content="2018-12-22T08:10:12.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google支付脱坑指南">
 <meta name="twitter:description" content="背景 本文主要介绍使用aidl方式接入google支付时遇到的坑以及注意事项  接入google pay的官方文档：https://developer.android.com/google/play/billing/index.html 官方示例：https://github.com/googlesamples/android-play-billing  结合文档与Demo对内购应该会有一个比较全">
@@ -343,8 +343,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-21T00:18:40+08:00">
-                2018-12-21
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-22T16:10:12+08:00">
+                2018-12-22
               </time>
             
           </span>
@@ -410,14 +410,14 @@
 <li>接入google pay的官方文档：<a href="https://developer.android.com/google/play/billing/index.html" target="_blank" rel="noopener">https://developer.android.com/google/play/billing/index.html</a></li>
 <li>官方示例：<a href="https://github.com/googlesamples/android-play-billing" target="_blank" rel="noopener">https://github.com/googlesamples/android-play-billing</a></li>
 </ul>
-<p>结合文档与Demo对内购应该会有一个比较全面的理解</p>
+<p>结合文档与Demo对内购应该会有一个比较全面的理解。</p>
 <h2 id="坑与解">坑与解</h2>
 <ul>
 <li>
-<p>官方Demo中是在客户端中做了支付结果的校验，但推荐支付校验最好是放在服务端中处理。因为支付校验时需要利用专属的app_key，如果放在客户端有一定安全性风险</p>
+<p>官方Demo中是在客户端中做了支付结果的校验，但推荐支付校验最好是放在服务端中处理。因为支付校验时需要利用专属的app_key，如果放在客户端有一定安全性风险。</p>
 </li>
 <li>
-<p>在测试google pay的时候需要在developer console后台中创建一个beta或者alpha版本的应用，并且需要上传一个签名的apk，当然前提条件是必须要花25美金申请一个谷歌开发账号。另外需要注意的是此apk必须包含<code>&lt;uses-permission android:name=&quot;com.android.vending.BILLING&quot; /&gt;</code>权限，即内购权限</p>
+<p>在测试google pay的时候需要在developer console后台中创建一个beta或者alpha版本的应用，并且需要上传一个签名的apk，当然前提条件是必须要花25美金申请一个谷歌开发账号。另外需要注意的是此apk必须包含<code>&lt;uses-permission android:name=&quot;com.android.vending.BILLING&quot; /&gt;</code>权限，即内购权限。</p>
 </li>
 <li>
 <p>当应用处于beta、alpha状态时，只有授权的测试者账号（google 账号）才能在google play中下载此apk。在下图1的地方进行添加测试者操作，添加完成后将2的链接分享给测试者，测试者进行授权操作便可以在google play中下载此apk
@@ -428,18 +428,18 @@
 需要注意的是Android Studio直接运行的签名是默认debug，要保持与 developer console 签名一致可以手动配置debug签名，这样直接通过 Android Studio 运行就可以直接进行支付测试。</p>
 </li>
 <li>
-<p>可以利用google提供的特有的商品id进行静态响应测试，静态相应测试无需进行支付</p>
+<p>可以利用google提供的特有的商品id进行静态响应测试，静态相应测试无需进行支付。</p>
 </li>
 <li>
-<p>配置商品时需要注意的坑就是要将配置完成的商品状态改为<strong>激活状态</strong>，不然进行支付时一直提示需要登录</p>
+<p>配置商品时需要注意的坑就是要将配置完成的商品状态改为<strong>激活状态</strong>，不然进行支付时一直提示需要登录。</p>
 </li>
 <li>
-<p>进行真实测试时，测试的google账号必须绑定有海外购买能力的信用卡或者paypal</p>
+<p>进行真实测试时，测试的google账号必须绑定有海外购买能力的信用卡或者paypal。</p>
 </li>
-</ul>
-<ul>
-<li>不比担心花销，只要在developer console中配置测试账号，就可以进行真实测试但不会真的扣钱。配置的地方如下图
-<img src="/2018/12/20/Google支付脱坑指南/20170401173457771.png" alt=""></li>
+<li>
+<p>不比担心花销，只要在developer console中配置测试账号，就可以进行真实测试但不会真的扣钱。配置的地方如下图。
+<img src="/2018/12/20/Google支付脱坑指南/20170401173457771.png" alt=""></p>
+</li>
 </ul>
 
       
@@ -554,7 +554,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -565,7 +565,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -576,7 +576,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

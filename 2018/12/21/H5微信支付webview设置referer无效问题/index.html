@@ -87,7 +87,7 @@
 <meta property="og:description" content="背景 安卓在接入H5微信支付时，需要在webview中手动设置referer，代码如下 123Map extraHeaders = new HashMap();extraHeaders.put(&quot;Referer&quot;, &quot;商户申请H5时提交的授权域名&quot;);//例如 http://www.baidu.com webView.loadUrl(targetUrl, extraHeaders);//targe">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/12/21/H5微信支付webview设置referer无效问题/20180210220103937_meitu_1.png">
-<meta property="og:updated_time" content="2018-12-21T09:23:06.394Z">
+<meta property="og:updated_time" content="2018-12-22T08:09:10.504Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="H5微信支付webview设置referer无效问题">
 <meta name="twitter:description" content="背景 安卓在接入H5微信支付时，需要在webview中手动设置referer，代码如下 123Map extraHeaders = new HashMap();extraHeaders.put(&quot;Referer&quot;, &quot;商户申请H5时提交的授权域名&quot;);//例如 http://www.baidu.com webView.loadUrl(targetUrl, extraHeaders);//targe">
@@ -341,8 +341,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-21T17:23:06+08:00">
-                2018-12-21
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-22T16:09:10+08:00">
+                2018-12-22
               </time>
             
           </span>
@@ -407,11 +407,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map extraHeaders = <span class="keyword">new</span> HashMap();</span><br><span class="line">extraHeaders.put(<span class="string">"Referer"</span>, <span class="string">"商户申请H5时提交的授权域名"</span>);<span class="comment">//例如 http://www.baidu.com </span></span><br><span class="line">webView.loadUrl(targetUrl, extraHeaders);<span class="comment">//targetUrl为微信下单地址</span></span><br></pre></td></tr></table></figure>
 <p>设置referer的原因是因为微信后端需要验证请求来源，所以如果这个地方没有去设置的话，将无法正常拉起支付，并且webview会跳转如下页面中
 <img src="/2018/12/21/H5微信支付webview设置referer无效问题/20180210220103937_meitu_1.png" alt=""></p>
-<p>但是在测试过程中发现一个兼容性问题：在4.4.4、4.4.3的设备上，下单时一直会跳转到上面的页面中，后来通过抓包发现设置的Referer没有生效</p>
+<p>但是在测试过程中发现一个兼容性问题：在4.4.4、4.4.3的设备上，下单时一直会跳转到上面的页面中，后来通过抓包发现设置的Referer没有生效。</p>
 <h2 id="解决方案">解决方案</h2>
 <p>经过研究发现了一个靠谱方案，那就是利用loadDataWithBaseURL方法代替loadUrl方法，通过js去请求微信下单Url，我们先看下loadDataWithBaseURL方法的具体描述如下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">loadDataWithBaseURL</span><span class="params">(String baseUrl, String data, String mimeType, String encoding, String historyUrl)</span></span></span><br></pre></td></tr></table></figure>
-<p>此方法入参data可以是Html代码片，baseUr为页面的基础Url，用来组织html中的相对路径</p>
+<p>此方法入参data可以是Html代码片，baseUr为页面的基础Url，用来组织html中的相对路径。</p>
 <h2 id="具体做法">具体做法</h2>
 <p>我们在data这个参数中传入js代码片去请求微信下单Url，而baseUr设置为授权域名，这样请求微信下单Url时，referer自动会被设置为baseUrl（正常请求的referer默认就是请求的来源地址），最终实现代码如下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((<span class="string">"4.4.3"</span>.equals(android.os.Build.VERSION.RELEASE))</span><br><span class="line">                || (<span class="string">"4.4.4"</span>.equals(android.os.Build.VERSION.RELEASE))) &#123;</span><br><span class="line">	<span class="comment">//兼容这两个版本设置referer无效的问题</span></span><br><span class="line">	view.loadDataWithBaseURL(<span class="string">"商户申请H5时提交的授权域名"</span>,</span><br><span class="line">	        <span class="string">"&lt;script&gt;window.location.href=\""</span> + targetUrl + <span class="string">"\";&lt;/script&gt;"</span>,</span><br><span class="line">	        <span class="string">"text/html"</span>, <span class="string">"utf-8"</span>, <span class="keyword">null</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	Map&lt;String, String&gt; extraHeaders = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">	extraHeaders.put(<span class="string">"Referer"</span>, <span class="string">"商户申请H5时提交的授权域名"</span>);</span><br><span class="line">	view.loadUrl(targetUrl, extraHeaders);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -529,7 +529,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -540,7 +540,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -551,7 +551,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
