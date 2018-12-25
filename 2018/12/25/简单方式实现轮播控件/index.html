@@ -79,21 +79,20 @@
 
 
 
-<meta name="description" content="背景 本文主要介绍使用aidl方式接入google支付时遇到的坑以及注意事项  接入google pay的官方文档：https://developer.android.com/google/play/billing/index.html 官方示例：https://github.com/googlesamples/android-play-billing  结合文档与Demo对内购应该会有一个比较全">
+<meta name="description" content="前言 本文主要介绍一种简单实现无限轮播banner的方式。先来看下最后的效果如下:  思路 实现无限轮播思路很简单：基础控件肯定是选用viewpager，然后结合假数据与viewpager的特殊生命周期方法onPageSelected与onPageScrollStateChanged，最终实现无限轮播效果。 假数据 所谓假数据，就是在原始imageView数组最前与最后各加一个假数据，既在原ima">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Google支付脱坑指南">
-<meta property="og:url" content="http://yoursite.com/2018/12/20/Google支付脱坑指南/index.html">
+<meta property="og:title" content="简单方式实现无限轮播Banner">
+<meta property="og:url" content="http://yoursite.com/2018/12/25/简单方式实现轮播控件/index.html">
 <meta property="og:site_name" content="Peter&#39;s Blog">
-<meta property="og:description" content="背景 本文主要介绍使用aidl方式接入google支付时遇到的坑以及注意事项  接入google pay的官方文档：https://developer.android.com/google/play/billing/index.html 官方示例：https://github.com/googlesamples/android-play-billing  结合文档与Demo对内购应该会有一个比较全">
+<meta property="og:description" content="前言 本文主要介绍一种简单实现无限轮播banner的方式。先来看下最后的效果如下:  思路 实现无限轮播思路很简单：基础控件肯定是选用viewpager，然后结合假数据与viewpager的特殊生命周期方法onPageSelected与onPageScrollStateChanged，最终实现无限轮播效果。 假数据 所谓假数据，就是在原始imageView数组最前与最后各加一个假数据，既在原ima">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/20/Google支付脱坑指南/20170401173134262.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/20/Google支付脱坑指南/20170401173204247.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/20/Google支付脱坑指南/20170401173457771.png">
-<meta property="og:updated_time" content="2018-12-22T08:10:12.659Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/25/简单方式实现轮播控件/bannergif.gif">
+<meta property="og:image" content="http://yoursite.com/2018/12/25/简单方式实现轮播控件/banner.png">
+<meta property="og:updated_time" content="2018-12-25T11:56:35.677Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Google支付脱坑指南">
-<meta name="twitter:description" content="背景 本文主要介绍使用aidl方式接入google支付时遇到的坑以及注意事项  接入google pay的官方文档：https://developer.android.com/google/play/billing/index.html 官方示例：https://github.com/googlesamples/android-play-billing  结合文档与Demo对内购应该会有一个比较全">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/20/Google支付脱坑指南/20170401173134262.png">
+<meta name="twitter:title" content="简单方式实现无限轮播Banner">
+<meta name="twitter:description" content="前言 本文主要介绍一种简单实现无限轮播banner的方式。先来看下最后的效果如下:  思路 实现无限轮播思路很简单：基础控件肯定是选用viewpager，然后结合假数据与viewpager的特殊生命周期方法onPageSelected与onPageScrollStateChanged，最终实现无限轮播效果。 假数据 所谓假数据，就是在原始imageView数组最前与最后各加一个假数据，既在原ima">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/25/简单方式实现轮播控件/bannergif.gif">
 
 
 
@@ -123,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/20/Google支付脱坑指南/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/25/简单方式实现轮播控件/">
 
 
 
 
 
-  <title>Google支付脱坑指南 | Peter's Blog</title>
+  <title>简单方式实现无限轮播Banner | Peter's Blog</title>
   
 
 
@@ -298,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/Google支付脱坑指南/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/简单方式实现轮播控件/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Peter">
@@ -315,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Google支付脱坑指南</h1>
+          <h1 class="post-title" itemprop="name headline">简单方式实现无限轮播Banner</h1>
         
 
         <div class="post-meta">
@@ -327,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-20T23:36:43+08:00">
-                2018-12-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T17:05:20+08:00">
+                2018-12-25
               </time>
             
 
@@ -343,8 +342,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-22T16:10:12+08:00">
-                2018-12-22
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-25T19:56:35+08:00">
+                2018-12-25
               </time>
             
           </span>
@@ -362,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/脱坑指北/" itemprop="url" rel="index">
-                    <span itemprop="name">脱坑指北</span>
+                  <a href="/categories/安卓笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">安卓笔记</span>
                   </a>
                 </span>
 
@@ -404,43 +403,29 @@
       
 
       
-        <h2 id="背景">背景</h2>
-<p>本文主要介绍使用aidl方式接入google支付时遇到的坑以及注意事项</p>
-<ul>
-<li>接入google pay的官方文档：<a href="https://developer.android.com/google/play/billing/index.html" target="_blank" rel="noopener">https://developer.android.com/google/play/billing/index.html</a></li>
-<li>官方示例：<a href="https://github.com/googlesamples/android-play-billing" target="_blank" rel="noopener">https://github.com/googlesamples/android-play-billing</a></li>
-</ul>
-<p>结合文档与Demo对内购应该会有一个比较全面的理解。</p>
-<h2 id="坑与解">坑与解</h2>
-<ul>
-<li>
-<p>官方Demo中是在客户端中做了支付结果的校验，但推荐支付校验最好是放在服务端中处理。因为支付校验时需要利用专属的app_key，如果放在客户端有一定安全性风险。</p>
-</li>
-<li>
-<p>在测试google pay的时候需要在developer console后台中创建一个beta或者alpha版本的应用，并且需要上传一个签名的apk，当然前提条件是必须要花25美金申请一个谷歌开发账号。另外需要注意的是此apk必须包含<code>&lt;uses-permission android:name=&quot;com.android.vending.BILLING&quot; /&gt;</code>权限，即内购权限。</p>
-</li>
-<li>
-<p>当应用处于beta、alpha状态时，只有授权的测试者账号（google 账号）才能在google play中下载此apk。在下图1的地方进行添加测试者操作，添加完成后将2的链接分享给测试者，测试者进行授权操作便可以在google play中下载此apk
-<img src="/2018/12/20/Google支付脱坑指南/20170401173134262.png" alt="123">
-可能有的同学会问，那岂不是每次做一些改动是必须重新上传apk然后下载，再进行测试？其实只要保证运行的apk签名与developer console上传的apk签名一致，包名一致，版本号与版本名是上传过的版本号与版本名即可。上传过的版本号和版本名怎么理解呢？
-<img src="/2018/12/20/Google支付脱坑指南/20170401173204247.png" alt="">
-举个例子如上图，我上传过两个版本，老版本version code=10 、verison name=1.5.3，新版本version code=11 verison name=1.5.3，只要本地运行apk的verison code、version name在上传过的各个版本之中就可以正常测试，如果随便写不存在version code、version name是无法正常调起的支付的。
-需要注意的是Android Studio直接运行的签名是默认debug，要保持与 developer console 签名一致可以手动配置debug签名，这样直接通过 Android Studio 运行就可以直接进行支付测试。</p>
-</li>
-<li>
-<p>可以利用google提供的特有的商品id进行静态响应测试，静态相应测试无需进行支付。</p>
-</li>
-<li>
-<p>配置商品时需要注意的坑就是要将配置完成的商品状态改为<strong>激活状态</strong>，不然进行支付时一直提示需要登录。</p>
-</li>
-<li>
-<p>进行真实测试时，测试的google账号必须绑定有海外购买能力的信用卡或者paypal。</p>
-</li>
-<li>
-<p>不比担心花销，只要在developer console中配置测试账号，就可以进行真实测试但不会真的扣钱。配置的地方如下图。
-<img src="/2018/12/20/Google支付脱坑指南/20170401173457771.png" alt=""></p>
-</li>
-</ul>
+        <h2 id="前言">前言</h2>
+<p>本文主要介绍一种简单实现无限轮播banner的方式。先来看下最后的效果如下:</p>
+<p><img src="/2018/12/25/简单方式实现轮播控件/bannergif.gif" alt=""></p>
+<h2 id="思路">思路</h2>
+<p>实现无限轮播思路很简单：基础控件肯定是选用viewpager，然后结合假数据与viewpager的特殊生命周期方法<strong>onPageSelected</strong>与<strong>onPageScrollStateChanged</strong>，最终实现无限轮播效果。</p>
+<h2 id="假数据">假数据</h2>
+<p>所谓假数据，就是在原始imageView数组最前与最后各加一个假数据，既<strong>在原imageView数组的最前面增加一个与原最后一个imageView相同的imageView，同理在原imageView数组最后增加一个与原始第一个imageView相同的imageView</strong>，这样在最后一帧和第一帧进行切换时就会产生一种轮播的假象。结合下图应该就会比较容易理解。
+<img src="/2018/12/25/简单方式实现轮播控件/banner.png" alt="banner"></p>
+<h2 id="具体实现">具体实现</h2>
+<p>有了上文提到的假数据之后，在最后一张图片向右切换时，滑动过程中漏出来的是假的第一张图片，而当这张图片完全展示出来之后，我们需要将整个viewpager定位到index为1的真正的第一张图片。同理，在由第一张图片向左切换时，漏出的是假的最后一张图片，而当这张图片完全展示后，我们需要将整个viewpager定位到index为3的图片。</p>
+<p>ps：viewpager的index切换使用了<code>mPager.setCurrentItem(pageIndex, false);</code>方法，这样用户肉眼无法看出来banner进行了切换。</p>
+<p>根据上面的思路，现在需要实现一个index的简单计算。这里选择在viewpager的onPageSelected方法来实现index的计算。为什么要选择这个方法呢？我们先来看下官方对这个方法给出的定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * This method will be invoked when a new page becomes selected. Animation is not</span></span><br><span class="line"><span class="comment"> * necessarily complete.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> position Position index of the new selected page.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onPageSelected</span><span class="params">(<span class="keyword">int</span> position)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>可以看出这个方法是在新的一页被选择后调用，并且会把被选择的position作为参数传入，所以在我们在这个方法上可以轻易的计算出我们希望的index，具体实现代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageSelected</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">	pageIndex = i;<span class="comment">//i取值从0~4，3个原始数据2个假数据</span></span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> imageViewSize = mImageViews.size();<span class="comment">//imageView的总数</span></span><br><span class="line">	<span class="keyword">if</span> (FAKE_ITEM_COUNT == <span class="number">2</span> &amp;&amp; imageViewSize &gt; <span class="number">1</span>) &#123;<span class="comment">//其中FAKE_ITEM_COUNT是指两个假数据</span></span><br><span class="line">		<span class="keyword">if</span> (i == <span class="number">0</span>) &#123;<span class="comment">// 当视图在第一个时，将页面号设置为图片的最后一张</span></span><br><span class="line">		    pageIndex = imageViewSize - FAKE_ITEM_COUNT;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (i == mImageViews.size() - <span class="number">1</span>) &#123;<span class="comment">// 当视图在最后一个时,将页面号设置为图片的第一张</span></span><br><span class="line">		    pageIndex = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结合代码注释，理解起来应该很容易，这里就不在赘述。现在计算好了index，我们最后只需要在合适的时机进行切换就大功告成了。这个合适的时机就是viewpager滑停的时候，整个实现代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrollStateChanged</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (i == ViewPager.SCROLL_STATE_IDLE) &#123;</span><br><span class="line">	    <span class="keyword">if</span> (mPager.getCurrentItem() != pageIndex) &#123;</span><br><span class="line">	        mPager.setCurrentItem(pageIndex, <span class="keyword">false</span>);</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>理解起来也很容易，既当viewpager滑停后，如果viewpager当前的index与当前我们计算的pageIndex不同时就把viewpager切换到pageIndex的位置（index=0，pageIndex=3的场景和index=4，pageIndex=1的场景），这样就实现了无限轮播。</p>
+<h2 id="自动播放">自动播放</h2>
+<p>实现自动播放的方式是通过handler发一个延迟消息，而在handler的消息处理中只要去设置当前index+1即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> position = mPager.getCurrentItem() + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span> (position &gt;= mPager.getAdapter().getCount()) &#123; <span class="comment">// 滑到底就再滑到开头</span></span><br><span class="line">    position = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">mPager.setCurrentItem(position);</span><br></pre></td></tr></table></figure>
+<p>最后贴一下整个Demo的地址</p>
+<p><a href="https://github.com/PeterXiaoWang/BannerView" target="_blank" rel="noopener">https://github.com/PeterXiaoWang/BannerView</a></p>
 
       
     </div>
@@ -465,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/20/LruCache缓存图片研究小结/" rel="next" title="LruCache缓存图片研究小结">
-                <i class="fa fa-chevron-left"></i> LruCache缓存图片研究小结
+              <a href="/2018/12/22/Flutter-for-Android走读/" rel="next" title="Flutter for Android走读">
+                <i class="fa fa-chevron-left"></i> Flutter for Android走读
               </a>
             
           </div>
@@ -474,10 +459,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/21/H5微信支付webview设置referer无效问题/" rel="prev" title="H5微信支付webview设置referer无效问题">
-                H5微信支付webview设置referer无效问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -609,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坑与解"><span class="nav-number">2.</span> <span class="nav-text">坑与解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#假数据"><span class="nav-number">3.</span> <span class="nav-text">假数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体实现"><span class="nav-number">4.</span> <span class="nav-text">具体实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动播放"><span class="nav-number">5.</span> <span class="nav-text">自动播放</span></a></li></ol></div>
             
 
           </div>
