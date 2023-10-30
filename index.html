@@ -338,8 +338,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2023-09-16T12:23:03+08:00">
-                2023-09-16
+              <time title="更新于" itemprop="dateModified" datetime="2023-10-30T23:53:20+08:00">
+                2023-10-30
               </time>
             
           </span>
@@ -397,9 +397,9 @@
         
           
           前言
-本文主要是整理下 View 执行 invalidate 方法的流程
+本文主要是整理下 View 执行 invalidate 方法的流程（软件绘制场景下）。
 时序图
-核心点是执行 view 的 doTraversal 之前会插入同步屏障，然后依赖 Choreographer postCallback 的监听系统的 vsync 信号，当信号到来时执行 doTraversal 方法，在
+核心点是执行 view 的 doTraversal 之前会插入同步屏障，然后依赖 Choreographer postCallback 的监听系统的 vsync 信号，当信号到来时执行 doTrav
           ...
           <!--noindex-->
           <div class="post-button text-center">
