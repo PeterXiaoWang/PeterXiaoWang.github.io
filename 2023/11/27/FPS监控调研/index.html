@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="FPS 监控调研 定义 某段连续时间 deltT 内渲染完成的帧数 n，那么 n / deltT 就是帧率（Frames Per Second）。 四种方式 Android没有提供直接获取帧率的方法，而是直接或者间接的提供了获取每一帧渲染耗时的功能，经过二次计算后得到帧率。  SurfaceFlinger Gfxinfo FrameMetrics Choreographer  SurfaceFli">
+<meta name="description" content="定义 某段连续时间 deltT 内渲染完成的帧数 n，那么 n / deltT 就是帧率（Frames Per Second）。 四种方式 Android没有提供直接获取帧率的方法，而是直接或者间接的提供了获取每一帧渲染耗时的功能，经过二次计算后得到帧率。  SurfaceFlinger Gfxinfo FrameMetrics Choreographer  SurfaceFlinger Surf">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FPS调研">
+<meta property="og:title" content="FPS监控调研">
 <meta property="og:url" content="http://yoursite.com/2023/11/27/FPS监控调研/index.html">
 <meta property="og:site_name" content="Peter&#39;s Blog">
-<meta property="og:description" content="FPS 监控调研 定义 某段连续时间 deltT 内渲染完成的帧数 n，那么 n / deltT 就是帧率（Frames Per Second）。 四种方式 Android没有提供直接获取帧率的方法，而是直接或者间接的提供了获取每一帧渲染耗时的功能，经过二次计算后得到帧率。  SurfaceFlinger Gfxinfo FrameMetrics Choreographer  SurfaceFli">
+<meta property="og:description" content="定义 某段连续时间 deltT 内渲染完成的帧数 n，那么 n / deltT 就是帧率（Frames Per Second）。 四种方式 Android没有提供直接获取帧率的方法，而是直接或者间接的提供了获取每一帧渲染耗时的功能，经过二次计算后得到帧率。  SurfaceFlinger Gfxinfo FrameMetrics Choreographer  SurfaceFlinger Surf">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-11-27T15:28:30.760Z">
+<meta property="og:updated_time" content="2023-11-27T15:32:40.047Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FPS调研">
-<meta name="twitter:description" content="FPS 监控调研 定义 某段连续时间 deltT 内渲染完成的帧数 n，那么 n / deltT 就是帧率（Frames Per Second）。 四种方式 Android没有提供直接获取帧率的方法，而是直接或者间接的提供了获取每一帧渲染耗时的功能，经过二次计算后得到帧率。  SurfaceFlinger Gfxinfo FrameMetrics Choreographer  SurfaceFli">
+<meta name="twitter:title" content="FPS监控调研">
+<meta name="twitter:description" content="定义 某段连续时间 deltT 内渲染完成的帧数 n，那么 n / deltT 就是帧率（Frames Per Second）。 四种方式 Android没有提供直接获取帧率的方法，而是直接或者间接的提供了获取每一帧渲染耗时的功能，经过二次计算后得到帧率。  SurfaceFlinger Gfxinfo FrameMetrics Choreographer  SurfaceFlinger Surf">
 
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>FPS调研 | Peter's Blog</title>
+  <title>FPS监控调研 | Peter's Blog</title>
   
 
 
@@ -311,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">FPS调研</h1>
+          <h1 class="post-title" itemprop="name headline">FPS监控调研</h1>
         
 
         <div class="post-meta">
@@ -339,7 +339,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2023-11-27T23:28:30+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2023-11-27T23:32:40+08:00">
                 2023-11-27
               </time>
             
@@ -400,10 +400,9 @@
       
 
       
-        <h1>FPS 监控调研</h1>
-<h2 id="定义">定义</h2>
+        <h1>定义</h1>
 <p>某段连续时间 deltT 内渲染完成的帧数 n，那么 n / deltT 就是帧率（Frames Per Second）。</p>
-<h2 id="四种方式">四种方式</h2>
+<h1>四种方式</h1>
 <p>Android没有提供直接获取帧率的方法，而是直接或者间接的提供了获取每一帧渲染耗时的功能，经过二次计算后得到帧率。</p>
 <ul>
 <li>SurfaceFlinger</li>
@@ -411,7 +410,7 @@
 <li>FrameMetrics</li>
 <li>Choreographer</li>
 </ul>
-<h3 id="surfaceflinger">SurfaceFlinger</h3>
+<h2 id="surfaceflinger">SurfaceFlinger</h2>
 <p>SurfaceFlinger服务运行在Android系统的System进程中，它负责管理Android系统的帧缓冲区（Frame Buffer），绘制应用程序的UI。Android应用程序会请求SurfaceFlinger服务创建Surface，在上面绘制自己的UI，然后将这个已经绘制好了UI的Surface渲染到设备显示屏上去。通过获取SurfaceFlinger的一些数据，我们可以计算出帧率。</p>
 <ul>
 <li>方法一：通过“<strong>adb shell dumpsys SurfaceFlinger --latency</strong>”命令，可以获得历史的127条帧绘制数据。</li>
@@ -419,7 +418,7 @@
 </ul>
 <p>优点：计算帧率的一个周期报过了CPU和GPU的渲染实现，所以计算结果准确</p>
 <p>缺点：只能通过adb使用，没办法用于线上</p>
-<h3 id="gfxinfo">Gfxinfo</h3>
+<h2 id="gfxinfo">Gfxinfo</h2>
 <p>我们平常通过[设置]-&gt;[开发者选项]-&gt;[GPU呈现模式分析] -&gt;[在屏幕上显示为条形图] 这样的方式来观察页面的绘制情况，而“gfxinfo”命令就是将条形图数字化了。</p>
 <p>在 5.0 上执行 gfxinfo 命令，得到的即为渲染一帧所经过的各个阶段的耗时情况：</p>
 <p><strong>Draw: 表示在Java中创建显示列表部分中，OnDraw()方法占用的时间。</strong></p>
@@ -428,11 +427,11 @@
 <p><strong>Draw + Process + Execute = 完整显示一帧 ，这个时间要小于16ms才能保证每秒60帧。</strong></p>
 <p>优点：计算帧率的一个周期报过了CPU和GPU的渲染实现，所以计算结果准确</p>
 <p>缺点：这个命令可以在代码中通过反射的方式获取到数据，但是需要用户<strong>手动</strong>的在[设置]-&gt;[开发者选项]-&gt;[GPU呈现模式分析] -&gt;[在屏幕上显示为条形图] /[显示在adb shell dumpsys gfxinfo中]</p>
-<h3 id="framemetrics">FrameMetrics</h3>
+<h2 id="framemetrics">FrameMetrics</h2>
 <p>虽然 FrameMetrics 与 Gfxinfo 的数据同源，但是二者在计算帧率时也有差别。FrameMetrics 获得的是单个帧的数据，正常情况下只能拿到渲染一帧的各个阶段的数据（加起来是该帧总耗时），但可以通过反射拿到FrameMetrics的mTimingData变量中的数据（该数据就是gfxinfo命令带framestats的结果）</p>
 <p>优点：官方推荐，计算方式简单，可以获得绘制的各个阶段的起始时间和耗时。</p>
 <p>缺点：api≥24</p>
-<h3 id="choreographer">Choreographer</h3>
+<h2 id="choreographer">Choreographer</h2>
 <p>Choreographer机制是Android 4.1加入的，用于同Vsync机制配合，实现统一调度界面绘图。一次屏幕刷新完成后，将产生 VSync 信号并通知 Choreographer。 Choreographer 收到通知依次处理 Input、Animation、Draw，这三个过程都是通过 FrameCallback 回调的方式完成的。在 Draw 过程中，具体是执行 ViewRootImpl#performTraversals() 方法，完成视图树的 measure、layout、draw 流程。 而 FrameCallback#doFrame(long frameTimeNanos) 方法中可以得到 VSync 到来的时间戳，这样就能得到连续两帧开始渲染之间的间隔，将该值近似作为上一帧的渲染耗时。 实现 FrameCallback 接口，并通过 Choreographer#postFrameCallback() 方法将其跟 Input、Animation、Draw 这些回调一起塞入主线程的消息队列，就能源源不断的获取每一帧的渲染时间戳，每一个 VSync 的时间戳代表一帧，这样可以得到某段时间内渲染完成的帧数，二者相除即可得到帧率。</p>
 <p>优点：计算方式简单</p>
 <p>缺点：</p>
@@ -442,7 +441,7 @@
 <li>在完成第一帧自己负责的部分后交给 Render Thread 线程，然后等待 Render Thread 完成第一帧剩余的工作后在进行第二帧的绘制；</li>
 </ul>
 <p>一次滑动过程中，上述两种情况可能均存在，但是Choreographer只统计了主线程中的部分，而忽略了 Render 线程的部分，这样会导致得到的<strong>耗时偏小、帧率偏大</strong>。更进一步，既然一帧的绘制和渲染分布于两个线程， 那即使一帧的耗时综合大于 16.6 ms，只要位于 UI 线程部分的耗时不超过 16.6ms，那么就不影响 UI 线程绘制下一帧，但是会导致屏幕接着显示上一帧的内容，出现掉帧，而 Choreographer 仅凭帧耗时无法检测出这种掉帧。</p>
-<h2 id="总结与分析">总结与分析</h2>
+<h1>总结与分析</h1>
 <p>Choreographer和FrameMetrics的方案比较容易实现，但是目前只采用了Choreographer方案收集数据。但就上面的调研结果来看，Choreographer的统计帧率偏大，另外Choreographer采用postFrameCallback()的方法是会源源不断的回调doFrame()方法（<strong>即使页面不在渲染</strong>），所以采用的是（连续时间内回调doFrame()方法的次数/这段时间）来计算帧率。而FrameMetrics只有<strong>在页面渲染</strong>的时候才会回调方法，所以采用的是（取回调方法中的渲染总耗时+之前的平均帧率*之前的回调次数）/当前回调次数来计算帧率。所以Choreographer和FrameMetrics之间的误差还在于当页面处于静止状态，不需要渲染时，Choreographer的计算结果会慢慢偏向于60帧，造成该页面整体流畅的假象。所以，采用FrameMetrics方案更准确。</p>
 <p>思考：</p>
 <p>一般来说，Choreographer和FrameMetrics方案都只是计算的平均FPS，平均值只能反应一组数据集中趋势的量数，但是平均值很容易受极值的影响，比如在一个滚动页面中，第一个页面FPS值较低，但是后续的页面FPS值很高，这样就会造成整体的平均FPS值偏高，发现不了存在的问题。所以思考能否引入多个指标来综合分析页面的流畅度？</p>
@@ -622,7 +621,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">FPS 监控调研</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四种方式"><span class="nav-number">1.2.</span> <span class="nav-text">四种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#surfaceflinger"><span class="nav-number">1.2.1.</span> <span class="nav-text">SurfaceFlinger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gfxinfo"><span class="nav-number">1.2.2.</span> <span class="nav-text">Gfxinfo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#framemetrics"><span class="nav-number">1.2.3.</span> <span class="nav-text">FrameMetrics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#choreographer"><span class="nav-number">1.2.4.</span> <span class="nav-text">Choreographer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结与分析"><span class="nav-number">1.3.</span> <span class="nav-text">总结与分析</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">2.</span> <span class="nav-text">四种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#surfaceflinger"><span class="nav-number">2.1.</span> <span class="nav-text">SurfaceFlinger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gfxinfo"><span class="nav-number">2.2.</span> <span class="nav-text">Gfxinfo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#framemetrics"><span class="nav-number">2.3.</span> <span class="nav-text">FrameMetrics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#choreographer"><span class="nav-number">2.4.</span> <span class="nav-text">Choreographer</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">3.</span> <span class="nav-text">总结与分析</span></a></li></ol></div>
             
 
           </div>
